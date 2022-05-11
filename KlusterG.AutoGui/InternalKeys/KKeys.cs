@@ -5,10 +5,12 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KlusterG.AutoGui
+namespace KlusterG.AutoGui.InternalKeys
 {
-    public enum KKeys.InternalKeys
+    public enum KKeys
     {
-        
+        [EnumMember]
+        None = 0,
+
     }
 }

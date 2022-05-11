@@ -9,6 +9,6 @@ namespace KlusterG.AutoGui
 {
     public class Mouse
     {
-
+        public MKeys Key { get; set; }
     }
 }

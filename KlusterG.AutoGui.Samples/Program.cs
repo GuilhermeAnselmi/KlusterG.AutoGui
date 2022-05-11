@@ -1,11 +1,13 @@
-﻿using System;
+﻿using KlusterG.AutoGui;
+using System;
 
-namespace KlusterG.AutoGui.Samples;
-
-class Program
+namespace KlusterG.AutoGui.Samples
 {
-    static void Main(string[] args)
+    class Program
     {
-
+        static void Main(string[] args)
+        {
+            //Exec ex = new Exec();
+        }
     }
 }

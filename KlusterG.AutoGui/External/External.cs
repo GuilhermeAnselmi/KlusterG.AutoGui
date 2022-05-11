@@ -7,6 +7,9 @@ namespace KlusterG.AutoGui
         [DllImport("user32.dll")]
         public static extern void mouse_event(int dwFlags, int dx, int dy, int dwData, int dwExtraInfo);
 
+        [DllImport("user32.dll")]
+        public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
+
         [DllImport("user32.dll", EntryPoint = "MessageBox")]
         public static extern int message(int hWnd, String text, String caption, uint type);
 
@@ -24,8 +27,5 @@ namespace KlusterG.AutoGui
 
         [DllImport("user32.dll")]
         public static extern bool GetKeyState(int nVirtKey);
-
-        [DllImport("user32.dll")]
-        public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
     }
 }

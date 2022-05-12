@@ -11,6 +11,14 @@ namespace KlusterG.AutoGui
 
         private static KeyboardControl kControl = new KeyboardControl();
 
+        #region Message
+        /// <summary>
+        /// Send message on screen this user
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="content"></param>
+        /// <returns>bool, string</returns>
+        /// <exception cref="ExecException"></exception>
         public static Tuple<bool, string> Message(string title, string content)
         {
             try
@@ -31,7 +39,15 @@ namespace KlusterG.AutoGui
                 throw new ExecException($"Fatal Error: {ex}");
             }
         }
+        #endregion
 
+        #region Mouse
+        /// <summary>
+        /// Simulation of clicking this mouse
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>bool, string</returns>
+        /// <exception cref="ExecException"></exception>
         public static Tuple<bool, string> MouseClick(MKeys key)
         {
             try
@@ -68,7 +84,13 @@ namespace KlusterG.AutoGui
             }
         }
 
-        public static Tuple<bool, string> MousePress(MKeys key)
+        /// <summary>
+        /// Simulation of pressing mouse click
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>bool, string</returns>
+        /// <exception cref="ExecException"></exception>
+        public static Tuple<bool, string> PressMouse(MKeys key)
         {
             try
             {
@@ -95,7 +117,13 @@ namespace KlusterG.AutoGui
             }
         }
 
-        public static Tuple<bool, string> MouseDrop(MKeys key)
+        /// <summary>
+        /// Release mouse key pressed
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>bool, string</returns>
+        /// <exception cref="ExecException"></exception>
+        public static Tuple<bool, string> ReleaseMouse(MKeys key)
         {
             try
             {
@@ -122,7 +150,11 @@ namespace KlusterG.AutoGui
             }
         }
 
-        public static void DropMouseKeys()
+        /// <summary>
+        /// Release all mouse keys
+        /// </summary>
+        /// <exception cref="ExecException"></exception>
+        public static void ReleaseMouseKeys()
         {
             try
             {
@@ -138,6 +170,12 @@ namespace KlusterG.AutoGui
             }
         }
 
+        /// <summary>
+        /// Move mouse cursor to X and Y positions
+        /// </summary>
+        /// <param name="mouse"></param>
+        /// <returns>bool, string</returns>
+        /// <exception cref="ExecException"></exception>
         public static Tuple<bool, string> MouseMove(Mouse mouse)
         {
             try
@@ -161,6 +199,11 @@ namespace KlusterG.AutoGui
             }
         }
 
+        /// <summary>
+        /// Get mouse position
+        /// </summary>
+        /// <returns>Mouse</returns>
+        /// <exception cref="ExecException"></exception>
         public static Mouse GetMousePosition()
         {
             try
@@ -182,7 +225,15 @@ namespace KlusterG.AutoGui
                 throw new ExecException($"{title}: {ex}");
             }
         }
+        #endregion
 
+        #region Keyboard
+        /// <summary>
+        /// Simulates keyboard typing
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns>bool, string</returns>
+        /// <exception cref="ExecException"></exception>
         public static Tuple<bool, string> Write(string text)
         {
             try
@@ -214,7 +265,13 @@ namespace KlusterG.AutoGui
             }
         }
 
-        public static Tuple<bool, string> KeyPress(KKeys key = KKeys.None)
+        /// <summary>
+        /// Press a keyboard key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>bool, string</returns>
+        /// <exception cref="ExecException"></exception>
+        public static Tuple<bool, string> PressKey(KKeys key = KKeys.None)
         {
             try
             {
@@ -238,7 +295,13 @@ namespace KlusterG.AutoGui
             }
         }
 
-        public static Tuple<bool, string> KeyDrop(KKeys key = KKeys.None)
+        /// <summary>
+        /// Release the pressed key on the keyboard
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>bool, string</returns>
+        /// <exception cref="ExecException"></exception>
+        public static Tuple<bool, string> ReleaseKey(KKeys key = KKeys.None)
         {
             try
             {
@@ -262,7 +325,11 @@ namespace KlusterG.AutoGui
             }
         }
 
-        public static void DropKeyboardKeys()
+        /// <summary>
+        /// Release the pressed key from the keyboard
+        /// </summary>
+        /// <exception cref="ExecException"></exception>
+        public static void ReleaseKeyboardKeys()
         {
             try
             {
@@ -275,18 +342,22 @@ namespace KlusterG.AutoGui
                 throw new ExecException($"{title}: {ex}");
             }
         }
+        #endregion
 
+        /// <summary>
+        /// Release all keys (keyboard and mouse)
+        /// </summary>
         public static void DropAllKeys()
         {
-            DropMouseKeys();
-            DropKeyboardKeys();
+            ReleaseMouseKeys();
+            ReleaseKeyboardKeys();
         }
 
         public static Tuple<bool, string> GetPixelColor()
         {
             try
             {
-
+                return new Tuple<bool, string>(false, "DEVELOPER: NOT IMPLEMENTED");
 
                 return new Tuple<bool, string>(false, "KKeys cannot be null or none");
             }
@@ -302,7 +373,7 @@ namespace KlusterG.AutoGui
         {
             try
             {
-
+                return new Tuple<bool, string>(false, "DEVELOPER: NOT IMPLEMENTED");
 
                 return new Tuple<bool, string>(false, "KKeys cannot be null or none");
             }
@@ -318,7 +389,7 @@ namespace KlusterG.AutoGui
         {
             try
             {
-
+                return new Tuple<bool, string>(false, "DEVELOPER: NOT IMPLEMENTED");
 
                 return new Tuple<bool, string>(false, "KKeys cannot be null or none");
             }

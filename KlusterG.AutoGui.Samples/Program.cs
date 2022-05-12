@@ -8,15 +8,19 @@ namespace KlusterG.AutoGui.Samples
     {
         static void Main(string[] args)
         {
-            
+
+            Exec.Message("Testing", "Send Message");
+
             Exec.MouseClick(MKeys.Right);
-            Exec.MousePress(MKeys.Left);
-            Exec.MouseDrop(MKeys.Left);
+            Exec.PressMouse(MKeys.Left);
+            Exec.ReleaseMouse(MKeys.Left);
+
             Exec.Write("Testando");
-            Exec.KeyPress(KKeys.Shift);
-            Exec.KeyDrop(KKeys.Shift);
-            Exec.DropKeyboardKeys();
-            Exec.DropMouseKeys();
+            Exec.PressKey(KKeys.Shift);
+            Exec.ReleaseKey(KKeys.Shift);
+            Exec.ReleaseKeyboardKeys();
+            Exec.ReleaseMouseKeys();
+
             Exec.DropAllKeys();
 
             Mouse mouse = Exec.GetMousePosition();

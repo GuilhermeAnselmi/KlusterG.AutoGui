@@ -11,5 +11,7 @@ namespace KlusterG.AutoGui
     public class Mouse
     {
         public MKeys Key { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
     }
 }

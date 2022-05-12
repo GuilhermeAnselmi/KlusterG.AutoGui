@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 
 namespace KlusterG.AutoGui.InternalKeys
 {
@@ -11,22 +6,22 @@ namespace KlusterG.AutoGui.InternalKeys
     {
         #region Mouse Keys
         [EnumMember]
-        LeftDrop = 0x00000002,
+        LeftPress = 0x00000002,
 
         [EnumMember]
-        LeftPress = 0x00000004,
-
-        [EnumMember]
-        RightDrop = 0x00000008,
+        LeftDrop = 0x00000004,
 
         [EnumMember]
         RightPress = 0x00000010,
 
         [EnumMember]
-        MiddleDrop = 0x00000020,
+        RightDrop = 0x0000008,
 
         [EnumMember]
-        MiddlePress = 0x00000040,
+        MiddlePress = 0x00000020,
+
+        [EnumMember]
+        MiddleDrop = 0x00000040,
 
         [EnumMember]
         Move = 0x00000001,

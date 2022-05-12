@@ -1,131 +1,333 @@
 ﻿using KlusterG.AutoGui.InternalKeys;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
+using static KlusterG.AutoGui.Structs;
 
 namespace KlusterG.AutoGui
 {
     public class Exec
     {
-        public const int KEYEVENF_KEYUP = 0x0002;
-        public const int KEYEVENTF_EXTENDEDKEY = 0x0001;
+        private static readonly uint KEYEVENF_KEYUP = 0x0002;
+        private static readonly uint KEYEVENTF_EXTENDEDKEY = 0x0001;
 
-        public void Click(MKeys key = MKeys.Left)
+        private static KeyboardControl kControl = new KeyboardControl();
+
+        public static Tuple<bool, string> Message(string title, string content)
         {
-            if (key == MKeys.Left)
+            try
             {
-                External.mouse_event((int)MouseKeys.LeftPress, 0, 0, 0, 0);
-                External.mouse_event((int)MouseKeys.LeftDrop, 0, 0, 0, 0);
+                if (title != null && content != null)
+                {
+                    External.MessageBox(0, content, title, 0);
+
+                    return new Tuple<bool, string>(true, null);
+                }
+                else
+                {
+                    return new Tuple<bool, string>(false, "Title and content cannot be null");
+                }
             }
-            else if (key == MKeys.Right)
+            catch (Exception ex)
             {
-                External.mouse_event((int)MouseKeys.RightPress, 0, 0, 0, 0);
-                External.mouse_event((int)MouseKeys.RightDrop, 0, 0, 0, 0);
-            }
-            else if (key == MKeys.Middle)
-            {
-                External.mouse_event((int)MouseKeys.MiddlePress, 0, 0, 0, 0);
-                External.mouse_event((int)MouseKeys.MiddleDrop, 0, 0, 0, 0);
+                throw new ExecException($"Fatal Error: {ex}");
             }
         }
 
-        public void Press(MKeys key = MKeys.None)
+        public static Tuple<bool, string> MouseClick(MKeys key)
         {
-            if (key == MKeys.Left)
+            try
             {
-                External.mouse_event((int)MouseKeys.LeftPress, 0, 0, 0, 0);
-            }
-            else if (key == MKeys.Right)
-            {
-                External.mouse_event((int)MouseKeys.RightPress, 0, 0, 0, 0);
-            }
-            else if (key == MKeys.Middle)
-            {
-                External.mouse_event((int)MouseKeys.MiddlePress, 0, 0, 0, 0);
-            }
-            else
-            {
+                if (key == MKeys.Left)
+                {
+                    External.MouseEvet((int)MouseKeys.LeftPress, 0, 0, 0, 0);
+                    External.MouseEvet((int)MouseKeys.LeftDrop, 0, 0, 0, 0);
 
+                    return new Tuple<bool, string>(true, null);
+                }
+                else if (key == MKeys.Right)
+                {
+                    External.MouseEvet((int)MouseKeys.RightPress, 0, 0, 0, 0);
+                    External.MouseEvet((int)MouseKeys.RightDrop, 0, 0, 0, 0);
+
+                    return new Tuple<bool, string>(true, null);
+                }
+                else if (key == MKeys.Middle)
+                {
+                    External.MouseEvet((int)MouseKeys.MiddlePress, 0, 0, 0, 0);
+                    External.MouseEvet((int)MouseKeys.MiddleDrop, 0, 0, 0, 0);
+
+                    return new Tuple<bool, string>(true, null);
+                }
+
+                return new Tuple<bool, string>(false, "MKeys cannot be null or none");
+            }
+            catch (Exception ex)
+            {
+                string title = "MouseClick Error";
+
+                throw new ExecException($"{title}: {ex}");
             }
         }
 
-        public void Drop(MKeys key = MKeys.None)
+        public static Tuple<bool, string> MousePress(MKeys key)
         {
-            if (key == MKeys.Left)
+            try
             {
-                External.mouse_event((int)MouseKeys.LeftDrop, 0, 0, 0, 0);
+                if (key == MKeys.Left)
+                {
+                    External.MouseEvet((int)MouseKeys.LeftPress, 0, 0, 0, 0);
+                }
+                else if (key == MKeys.Right)
+                {
+                    External.MouseEvet((int)MouseKeys.RightPress, 0, 0, 0, 0);
+                }
+                else if (key == MKeys.Middle)
+                {
+                    External.MouseEvet((int)MouseKeys.MiddlePress, 0, 0, 0, 0);
+                }
+
+                return new Tuple<bool, string>(false, "MKeys cannot be null or none");
             }
-            else if (key == MKeys.Right)
+            catch (Exception ex)
             {
-                External.mouse_event((int)MouseKeys.RightDrop, 0, 0, 0, 0);
-            }
-            else if (key == MKeys.Middle)
-            {
-                External.mouse_event((int)MouseKeys.MiddleDrop, 0, 0, 0, 0);
-            }
-            else
-            {
+                string title = "MousePress Error";
 
-            }
-        }
-
-        public void DropMouseKeys()
-        {
-            External.mouse_event((int)MouseKeys.LeftDrop, 0, 0, 0, 0);
-            External.mouse_event((int)MouseKeys.RightDrop, 0, 0, 0, 0);
-            External.mouse_event((int)MouseKeys.MiddleDrop, 0, 0, 0, 0);
-        }
-
-        public void Write(string text)
-        {
-            char[] values = text.ToUpper().ToCharArray();
-
-            foreach (char value in values)
-            {
-                var hex = Convert.ToInt32(value);
-
-                External.keybd_event((byte)hex, 0, 0, UIntPtr.Zero);
-                External.keybd_event((byte)hex, 0, KEYEVENF_KEYUP, UIntPtr.Zero);
+                throw new ExecException($"{title}: {ex}");
             }
         }
 
-        public void KeyPress(KKeys key = KKeys.None)
+        public static Tuple<bool, string> MouseDrop(MKeys key)
         {
-            External.keybd_event((byte)key, 0, 0, UIntPtr.Zero);
+            try
+            {
+                if (key == MKeys.Left)
+                {
+                    External.MouseEvet((int)MouseKeys.LeftDrop, 0, 0, 0, 0);
+                }
+                else if (key == MKeys.Right)
+                {
+                    External.MouseEvet((int)MouseKeys.RightDrop, 0, 0, 0, 0);
+                }
+                else if (key == MKeys.Middle)
+                {
+                    External.MouseEvet((int)MouseKeys.MiddleDrop, 0, 0, 0, 0);
+                }
+
+                return new Tuple<bool, string>(false, "MKeys cannot be null or none");
+            }
+            catch (Exception ex)
+            {
+                string title = "MouseDrop Error";
+
+                throw new ExecException($"{title}: {ex}");
+            }
         }
 
-        public void KeyDrop(KKeys key = KKeys.None)
+        public static void DropMouseKeys()
         {
-            External.keybd_event((byte)key, 0, KEYEVENF_KEYUP, UIntPtr.Zero);
+            try
+            {
+                External.MouseEvet((int)MouseKeys.LeftDrop, 0, 0, 0, 0);
+                External.MouseEvet((int)MouseKeys.RightDrop, 0, 0, 0, 0);
+                External.MouseEvet((int)MouseKeys.MiddleDrop, 0, 0, 0, 0);
+            }
+            catch (Exception ex)
+            {
+                string title = "DropMouseKey Error";
+
+                throw new ExecException($"{title}: {ex}");
+            }
         }
 
-        public void DropKeyboardKeys()
+        public static Tuple<bool, string> MouseMove(Mouse mouse)
         {
-            External.keybd_event((byte)KKeys.ClearKey, 0, 0, UIntPtr.Zero);
-            External.keybd_event((byte)KKeys.ClearKey, 0, KEYEVENF_KEYUP, UIntPtr.Zero);
+            try
+            {
+                if (mouse.X != null && mouse.Y != null)
+                {
+                    External.SetCursorPos(mouse.X, mouse.Y);
+
+                    return new Tuple<bool, string>(true, null);
+                }
+                else
+                {
+                    return new Tuple<bool, string>(false, "Mouse object cannot be empty");
+                }
+            }
+            catch (Exception ex)
+            {
+                string title = "MouseMove Error";
+
+                throw new ExecException($"{title}: {ex}");
+            }
         }
 
-        public void DropAllKeys()
+        public static Mouse GetMousePosition()
+        {
+            try
+            {
+                Mouse mouse = new Mouse();
+
+                CursorPosition lpPoint;
+                External.GetCursorPos(out lpPoint);
+
+                mouse.X = lpPoint.X;
+                mouse.Y = lpPoint.Y;
+
+                return mouse;
+            }
+            catch (Exception ex)
+            {
+                string title = "GetMousePosition Error";
+
+                throw new ExecException($"{title}: {ex}");
+            }
+        }
+
+        public static Tuple<bool, string> Write(string text)
+        {
+            try
+            {
+                if (text != null && text != "")
+                {
+                    char[] values = text.ToUpper().ToCharArray();
+
+                    foreach (char value in values)
+                    {
+                        var hex = Convert.ToInt32(value);
+
+                        External.KeyboardEvent((byte)hex, 0, 0, UIntPtr.Zero);
+                        External.KeyboardEvent((byte)hex, 0, KEYEVENF_KEYUP, UIntPtr.Zero);
+                    }
+
+                    return new Tuple<bool, string>(true, null);
+                }
+                else
+                {
+                    return new Tuple<bool, string>(false, "Text cannot be null or empty");
+                }
+            }
+            catch (Exception ex)
+            {
+                string title = "Write Error";
+
+                throw new ExecException($"{title}: {ex}");
+            }
+        }
+
+        public static Tuple<bool, string> KeyPress(KKeys key = KKeys.None)
+        {
+            try
+            {
+                if (key != null && key != KKeys.None)
+                {
+                    External.KeyboardEvent((byte)key, 0, 0, UIntPtr.Zero);
+                    kControl.AddKeyPress(key);
+
+                    return new Tuple<bool, string>(true, null);
+                }
+                else
+                {
+                    return new Tuple<bool, string>(false, "KKeys cannot be null or none");
+                }
+            }
+            catch (Exception ex)
+            {
+                string title = "KeyPress Error";
+
+                throw new ExecException($"{title}: {ex}");
+            }
+        }
+
+        public static Tuple<bool, string> KeyDrop(KKeys key = KKeys.None)
+        {
+            try
+            {
+                if (key != null && key != KKeys.None)
+                {
+                    External.KeyboardEvent((byte)key, 0, KEYEVENF_KEYUP, UIntPtr.Zero);
+                    kControl.RemoveKeyPress(key);
+
+                    return new Tuple<bool, string>(true, null);
+                }
+                else
+                {
+                    return new Tuple<bool, string>(false, "KKeys cannot be null or none");
+                }
+            }
+            catch (Exception ex)
+            {
+                string title = "KeyDrop Error";
+
+                throw new ExecException($"{title}: {ex}");
+            }
+        }
+
+        public static void DropKeyboardKeys()
+        {
+            try
+            {
+                kControl.ClearKeys();
+            }
+            catch (Exception ex)
+            {
+                string title = "DropKeyboardKeys Error";
+
+                throw new ExecException($"{title}: {ex}");
+            }
+        }
+
+        public static void DropAllKeys()
         {
             DropMouseKeys();
             DropKeyboardKeys();
         }
 
-        public void PixelColor()
+        public static Tuple<bool, string> GetPixelColor()
         {
+            try
+            {
 
+
+                return new Tuple<bool, string>(false, "KKeys cannot be null or none");
+            }
+            catch (Exception ex)
+            {
+                string title = "GetPixelColor Error";
+
+                throw new ExecException($"{title}: {ex}");
+            }
         }
 
-        public void Mouse()
+        public static Tuple<bool, string> Mouse()
         {
+            try
+            {
 
+
+                return new Tuple<bool, string>(false, "KKeys cannot be null or none");
+            }
+            catch (Exception ex)
+            {
+                string title = "Mouse Error";
+
+                throw new ExecException($"{title}: {ex}");
+            }
         }
 
-        public void Keyboard()
+        public static Tuple<bool, string> Keyboard()
         {
+            try
+            {
 
+
+                return new Tuple<bool, string>(false, "KKeys cannot be null or none");
+            }
+            catch (Exception ex)
+            {
+                string title = "Keyboard Error";
+
+                throw new ExecException($"{title}: {ex}");
+            }
         }
     }
 }

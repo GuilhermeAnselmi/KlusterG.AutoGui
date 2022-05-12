@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 
 namespace KlusterG.AutoGui.InternalKeys
 {
@@ -11,9 +6,6 @@ namespace KlusterG.AutoGui.InternalKeys
     {
         [EnumMember]
         None = 0,
-
-        [EnumMember]
-        ClearKey = 0x0c,
 
         [EnumMember]
         Win = 0x5B,

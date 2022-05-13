@@ -13,4 +13,18 @@ Library developed to facilitate the use of native windows components, such as de
 
 # Components and Functions
 
+* Message()
 * MouseClicK()
+* PressMouse()
+* ReleaseMouse()
+* ReleaseMouseKeys()
+* MouseMove()
+* GetMousePosition()
+* Write()
+* PressKey()
+* ReleaseKey()
+* ReleaseKeyboardKeys()
+* GetKeyPress()
+* ReleaseAllKeys()
+* GetPixelColor()
+* Wait()

@@ -387,7 +387,7 @@ namespace KlusterG.AutoGui
         /// <summary>
         /// Release all keys (keyboard and mouse)
         /// </summary>
-        public static void DropAllKeys()
+        public static void ReleaseAllKeys()
         {
             ReleaseMouseKeys();
             ReleaseKeyboardKeys();

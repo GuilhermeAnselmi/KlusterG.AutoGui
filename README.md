@@ -21,7 +21,7 @@ Library developed to facilitate the use of native windows components, such as de
 
 #
 
-* MouseClicK(MKeys key)
+* MouseClick(MKeys key)
 
   Comment: Simulation of clicking this mouse
 

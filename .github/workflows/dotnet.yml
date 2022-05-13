@@ -1,7 +1,10 @@
 name: .NET
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
   build:
@@ -14,8 +17,6 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 5.0.x
-    - name: Restore dependencies
-      run: dotnet restore
       
     - name: Package Generate
       run: dotnet build -c Release -o out

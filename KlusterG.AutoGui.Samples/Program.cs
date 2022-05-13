@@ -8,7 +8,7 @@ namespace KlusterG.AutoGui.Samples
     {
         static void Main(string[] args)
         {
-
+            /*
             Exec.Message("Testing", "Send Message");
 
             Exec.MouseClick(MKeys.Right);
@@ -29,7 +29,18 @@ namespace KlusterG.AutoGui.Samples
             //mouse.Y = 500;
 
             Exec.MouseMove(mouse);
-            
+
+            Exec.Wait(5);
+
+            PixelColor pColor = Exec.GetPixelColor(500, 500);
+
+            while (true)
+            {
+                var k = Exec.GetKeyPress();
+
+                if (k.Item1) Console.WriteLine(k.Item2);
+            }
+            */
 
 
 

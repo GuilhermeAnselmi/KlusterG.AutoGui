@@ -3,6 +3,8 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+KlusterG.AutoGui.Samples/
+
 # User-specific files
 *.rsuser
 *.suo

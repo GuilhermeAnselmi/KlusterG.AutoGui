@@ -1,5 +1,6 @@
 ﻿using KlusterG.AutoGui.InternalKeys;
 using System.Drawing;
+using System.Drawing.Imaging;
 using static KlusterG.AutoGui.Structs;
 
 namespace KlusterG.AutoGui
@@ -9,7 +10,10 @@ namespace KlusterG.AutoGui
         private static readonly uint KEYEVENF_KEYUP = 0x0002;
         private static readonly uint KEYEVENTF_EXTENDEDKEY = 0x0001;
 
+        private static string LastGetKeyPress = null;
+
         private static KeyboardControl kControl = new KeyboardControl();
+        private static Bitmap bitmap = new Bitmap(1, 1, PixelFormat.Format32bppArgb);
 
         #region Message
         /// <summary>
@@ -342,6 +346,42 @@ namespace KlusterG.AutoGui
                 throw new ExecException($"{title}: {ex}");
             }
         }
+
+        /// <summary>
+        /// Get the key that was pressed
+        /// </summary>
+        /// <returns>bool, string</returns>
+        /// <exception cref="ExecException"></exception>
+        public static Tuple<bool, string> GetKeyPress()
+        {
+            try
+            {
+                for (int key = 0; key < 255; key++)
+                {
+                    if (External.GetAsyncKeyState(key) == -32767)
+                    {
+                        char keyPress = Convert.ToChar(key);
+
+                        if (Essentials.IsNumeric(keyPress.ToString()) || Essentials.IsUpperCase(keyPress.ToString()))
+                        {
+                            return new Tuple<bool, string>(true, keyPress.ToString());
+                        }
+                        else
+                        {
+                            return new Tuple<bool, string>(false, null);
+                        }
+                    }
+                }
+
+                return new Tuple<bool, string>(false, null);
+            }
+            catch (Exception ex)
+            {
+                string title = "GetKeyPress Error";
+
+                throw new ExecException($"{title}: {ex}");
+            }
+        }
         #endregion
 
         /// <summary>
@@ -353,17 +393,65 @@ namespace KlusterG.AutoGui
             ReleaseKeyboardKeys();
         }
 
-        public static Tuple<bool, string> GetPixelColor()
+        /// <summary>
+        /// Get the color of the pixel that was indicated
+        /// </summary>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
+        /// <returns>pColor</returns>
+        /// <exception cref="ExecException"></exception>
+        public static PixelColor GetPixelColor(int X, int Y)
         {
             try
             {
-                return new Tuple<bool, string>(false, "DEVELOPER: NOT IMPLEMENTED");
+                Point point = new Point(X, Y);
 
-                return new Tuple<bool, string>(false, "KKeys cannot be null or none");
+                using (Graphics gdest = Graphics.FromImage(bitmap))
+                {
+                    using (Graphics gsrc = Graphics.FromHwnd(IntPtr.Zero))
+                    {
+                        IntPtr hSrcDC = gsrc.GetHdc();
+                        IntPtr hDC = gdest.GetHdc();
+
+                        int retval = External.BitBlt(hDC, 0, 0, 1, 1, hSrcDC, point.X, point.Y, (int)CopyPixelOperation.SourceCopy);
+
+                        gdest.ReleaseHdc();
+                        gsrc.ReleaseHdc();
+                    }
+                }
+
+                Color color = bitmap.GetPixel(0, 0);
+
+                PixelColor pColor = new PixelColor();
+                pColor.A = color.A;
+                pColor.R = color.R;
+                pColor.G = color.G;
+                pColor.B = color.B;
+
+                return pColor;
             }
             catch (Exception ex)
             {
                 string title = "GetPixelColor Error";
+
+                throw new ExecException($"{title}: {ex}");
+            }
+        }
+
+        /// <summary>
+        /// Makes the whole process wait for the parameter time
+        /// </summary>
+        /// <param name="time"></param>
+        /// <exception cref="ExecException"></exception>
+        public static void Wait(int time)
+        {
+            try
+            {
+                Thread.Sleep(time * 1000);
+            }
+            catch (Exception ex)
+            {
+                string title = "Wait Error";
 
                 throw new ExecException($"{title}: {ex}");
             }

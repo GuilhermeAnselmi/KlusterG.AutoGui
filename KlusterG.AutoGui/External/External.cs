@@ -27,5 +27,8 @@ namespace KlusterG.AutoGui
 
         [DllImport("user32.dll")]
         public static extern bool GetKeyState(int nVirtKey);
+
+        [DllImport("gdi32.dll")]
+        public static extern int BitBlt(IntPtr hDC, int x, int y, int nWidth, int nHeight, IntPtr hSrcDC, int xSrc, int ySrc, int dwRop);
     }
 }

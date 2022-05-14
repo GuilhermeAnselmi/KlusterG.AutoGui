@@ -2,7 +2,7 @@
 
 namespace KlusterG.AutoGui
 {
-    public class Structs
+    internal class Structs
     {
         public struct CursorPosition
         {

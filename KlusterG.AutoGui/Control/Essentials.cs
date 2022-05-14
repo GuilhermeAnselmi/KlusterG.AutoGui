@@ -2,7 +2,7 @@
 
 namespace KlusterG.AutoGui
 {
-    public class Essentials
+    internal class Essentials
     {
         public static bool IsTextNumeric(string value)
         {

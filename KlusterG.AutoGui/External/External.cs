@@ -2,7 +2,7 @@
 
 namespace KlusterG.AutoGui
 {
-    public class External
+    internal class External
     {
         [DllImport("user32.dll", EntryPoint = "mouse_event")]
         public static extern void MouseEvet(int dwFlags, int dx, int dy, int dwData, int dwExtraInfo);

@@ -2,7 +2,7 @@
 
 namespace KlusterG.AutoGui
 {
-    public class KeyboardControl
+    internal class KeyboardControl
     {
         private List<KKeys> Keys = new List<KKeys>();
 

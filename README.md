@@ -29,7 +29,15 @@ Library developed to facilitate the use of native windows components, such as de
 
 #
 
-* PressMouse(MKeys key)
+* MouseDoubleClick(MKeys key)
+
+  Comment: Simulation of dobule clicking this mouse
+
+  Return: Tuple<bool, string>
+
+#
+
+* MousePress(MKeys key)
 
   Comment: Simulation of pressing mouse click
 
@@ -53,15 +61,15 @@ Library developed to facilitate the use of native windows components, such as de
 
 #
 
-* MouseMove(Mouse mouse)
+* SetCursorPosition(Mouse mouse)
 
   Comment: Move mouse cursor to X and Y positions
 
-  Return: Tuple<bool, string>
+  Return: void
 
 #
 
-* GetMousePosition()
+* GetCursorPosition()
 
   Comment: Get mouse position
 
@@ -77,7 +85,7 @@ Library developed to facilitate the use of native windows components, such as de
 
 #
 
-* PressKey(KKeys key)
+* KeyPress(KKeys key)
 
   Comment: Press a keyboard key
 
@@ -133,21 +141,10 @@ Library developed to facilitate the use of native windows components, such as de
 
 #
 
-[DEVELOPMENT]
-* Mouse()
+* StartRoutine(List<ModelRoutine> routine)
 
-  Comment: Development
+  Comment: Reads a list from the ModelRoutine object that executes each index in sequence to execute Mouse or Keyboard simulation commands
   
-  Return: Development
-
-#
-
-[DEVELOPMENT]
-* Keyboard()
-
-  Comment: Development
-  
-  Return: Development
-
+  Return: bool, string
 
 #

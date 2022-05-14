@@ -10,8 +10,6 @@ namespace KlusterG.AutoGui
         private static readonly uint KEYEVENF_KEYUP = 0x0002;
         private static readonly uint KEYEVENTF_EXTENDEDKEY = 0x0001;
 
-        private static string LastGetKeyPress = null;
-
         private static KeyboardControl kControl = new KeyboardControl();
         private static Bitmap bitmap = new Bitmap(1, 1, PixelFormat.Format32bppArgb);
 
@@ -89,12 +87,69 @@ namespace KlusterG.AutoGui
         }
 
         /// <summary>
+        /// Simulation of dobule clicking this mouse
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>bool, string</returns>
+        /// <exception cref="ExecException"></exception>
+        public static Tuple<bool, string> MouseDoubleClick(MKeys key = MKeys.Left)
+        {
+            try
+            {
+                if (key == MKeys.Left)
+                {
+                    External.MouseEvet((int)MouseKeys.LeftPress, 0, 0, 0, 0);
+                    External.MouseEvet((int)MouseKeys.LeftDrop, 0, 0, 0, 0);
+
+                    Thread.Sleep(200);
+
+                    External.MouseEvet((int)MouseKeys.LeftPress, 0, 0, 0, 0);
+                    External.MouseEvet((int)MouseKeys.LeftDrop, 0, 0, 0, 0);
+
+                    return new Tuple<bool, string>(true, null);
+                }
+                else if (key == MKeys.Right)
+                {
+                    External.MouseEvet((int)MouseKeys.RightPress, 0, 0, 0, 0);
+                    External.MouseEvet((int)MouseKeys.RightDrop, 0, 0, 0, 0);
+
+                    Thread.Sleep(200);
+
+                    External.MouseEvet((int)MouseKeys.RightPress, 0, 0, 0, 0);
+                    External.MouseEvet((int)MouseKeys.RightDrop, 0, 0, 0, 0);
+
+                    return new Tuple<bool, string>(true, null);
+                }
+                else if (key == MKeys.Middle)
+                {
+                    External.MouseEvet((int)MouseKeys.MiddlePress, 0, 0, 0, 0);
+                    External.MouseEvet((int)MouseKeys.MiddleDrop, 0, 0, 0, 0);
+
+                    Thread.Sleep(200);
+
+                    External.MouseEvet((int)MouseKeys.MiddlePress, 0, 0, 0, 0);
+                    External.MouseEvet((int)MouseKeys.MiddleDrop, 0, 0, 0, 0);
+
+                    return new Tuple<bool, string>(true, null);
+                }
+
+                return new Tuple<bool, string>(false, "MKeys cannot be null or none");
+            }
+            catch (Exception ex)
+            {
+                string title = "MouseDoubleClick Error";
+
+                throw new ExecException($"{title}: {ex}");
+            }
+        }
+
+        /// <summary>
         /// Simulation of pressing mouse click
         /// </summary>
         /// <param name="key"></param>
         /// <returns>bool, string</returns>
         /// <exception cref="ExecException"></exception>
-        public static Tuple<bool, string> PressMouse(MKeys key)
+        public static Tuple<bool, string> MousePress(MKeys key)
         {
             try
             {
@@ -178,22 +233,12 @@ namespace KlusterG.AutoGui
         /// Move mouse cursor to X and Y positions
         /// </summary>
         /// <param name="mouse"></param>
-        /// <returns>bool, string</returns>
         /// <exception cref="ExecException"></exception>
-        public static Tuple<bool, string> MouseMove(Mouse mouse)
+        public static void SetCursorPosition(Mouse mouse)
         {
             try
             {
-                if (mouse.X != null && mouse.Y != null)
-                {
-                    External.SetCursorPos(mouse.X, mouse.Y);
-
-                    return new Tuple<bool, string>(true, null);
-                }
-                else
-                {
-                    return new Tuple<bool, string>(false, "Mouse object cannot be empty");
-                }
+                External.SetCursorPos(mouse.X, mouse.Y);
             }
             catch (Exception ex)
             {
@@ -208,7 +253,7 @@ namespace KlusterG.AutoGui
         /// </summary>
         /// <returns>Mouse</returns>
         /// <exception cref="ExecException"></exception>
-        public static Mouse GetMousePosition()
+        public static Mouse GetCursorPosition()
         {
             try
             {
@@ -275,11 +320,11 @@ namespace KlusterG.AutoGui
         /// <param name="key"></param>
         /// <returns>bool, string</returns>
         /// <exception cref="ExecException"></exception>
-        public static Tuple<bool, string> PressKey(KKeys key = KKeys.None)
+        public static Tuple<bool, string> KeyPress(KKeys key = KKeys.None)
         {
             try
             {
-                if (key != null && key != KKeys.None)
+                if (key != KKeys.None)
                 {
                     External.KeyboardEvent((byte)key, 0, 0, UIntPtr.Zero);
                     kControl.AddKeyPress(key);
@@ -288,7 +333,7 @@ namespace KlusterG.AutoGui
                 }
                 else
                 {
-                    return new Tuple<bool, string>(false, "KKeys cannot be null or none");
+                    return new Tuple<bool, string>(false, "KKeys cannot be none");
                 }
             }
             catch (Exception ex)
@@ -309,7 +354,7 @@ namespace KlusterG.AutoGui
         {
             try
             {
-                if (key != null && key != KKeys.None)
+                if (key != KKeys.None)
                 {
                     External.KeyboardEvent((byte)key, 0, KEYEVENF_KEYUP, UIntPtr.Zero);
                     kControl.RemoveKeyPress(key);
@@ -318,7 +363,7 @@ namespace KlusterG.AutoGui
                 }
                 else
                 {
-                    return new Tuple<bool, string>(false, "KKeys cannot be null or none");
+                    return new Tuple<bool, string>(false, "KKeys cannot be none");
                 }
             }
             catch (Exception ex)
@@ -457,33 +502,86 @@ namespace KlusterG.AutoGui
             }
         }
 
-        public static Tuple<bool, string> Mouse()
+        /// <summary>
+        /// Reads a list from the ModelRoutine object that executes each index in sequence to execute Mouse or Keyboard simulation commands
+        /// </summary>
+        /// <param name="routine"></param>
+        /// <returns>bool, string</returns>
+        /// <exception cref="ExecException"></exception>
+        public static Tuple<bool, string> StartRoutine(List<ModelRoutine> routine)
         {
             try
             {
-                return new Tuple<bool, string>(false, "DEVELOPER: NOT IMPLEMENTED");
+                if (routine != null && routine.Count > 0)
+                {
+                    foreach (ModelRoutine e in routine)
+                    {
+                        if (e.Input.Equals(Input.Mouse))
+                        {
+                            if (e.Mouse.Move) SetCursorPosition(e.Mouse);
 
-                return new Tuple<bool, string>(false, "KKeys cannot be null or none");
+                            switch (e.Mouse.Action)
+                            {
+                                case MouseAction.Click:
+                                    MouseClick(e.Mouse.Key);
+                                    break;
+
+                                case MouseAction.Double:
+                                    MouseDoubleClick(e.Mouse.Key);
+                                    break;
+
+                                case MouseAction.Press:
+                                    MousePress(e.Mouse.Key);
+                                    break;
+
+                                case MouseAction.Release:
+                                    ReleaseMouse(e.Mouse.Key);
+                                    break;
+
+                                case MouseAction.ReleaseAll:
+                                    ReleaseMouseKeys();
+                                    break;
+                            }
+
+                            Wait(e.Wait);
+                        }
+                        else if (e.Input.Equals(Input.Keyboard))
+                        {
+                            switch (e.Keyboard.Action)
+                            {
+                                case KeyboardAction.Write:
+                                    Write(e.Keyboard.Text);
+                                    break;
+
+                                case KeyboardAction.Press:
+                                    if (e.Keyboard.PrimaryKey != KKeys.None) KeyPress(e.Keyboard.PrimaryKey);
+                                    if (e.Keyboard.SecondaryKey != KKeys.None) KeyPress(e.Keyboard.SecondaryKey);
+                                    if (e.Keyboard.TertiaryKey != KKeys.None) KeyPress(e.Keyboard.TertiaryKey);
+                                    break;
+
+                                case KeyboardAction.Release:
+                                    if (e.Keyboard.PrimaryKey != KKeys.None) ReleaseKey(e.Keyboard.PrimaryKey);
+                                    if (e.Keyboard.SecondaryKey != KKeys.None) ReleaseKey(e.Keyboard.SecondaryKey);
+                                    if (e.Keyboard.TertiaryKey != KKeys.None) ReleaseKey(e.Keyboard.TertiaryKey);
+                                    break;
+
+                                case KeyboardAction.ReleaseAll:
+                                    ReleaseAllKeys();
+                                    break;
+                            }
+
+                            Wait(e.Wait);
+                        }
+                    }
+
+                    return new Tuple<bool, string>(true, null);
+                }
+
+                return new Tuple<bool, string>(false, "List<ModelRoutine> cannot be null or empty");
             }
             catch (Exception ex)
             {
-                string title = "Mouse Error";
-
-                throw new ExecException($"{title}: {ex}");
-            }
-        }
-
-        public static Tuple<bool, string> Keyboard()
-        {
-            try
-            {
-                return new Tuple<bool, string>(false, "DEVELOPER: NOT IMPLEMENTED");
-
-                return new Tuple<bool, string>(false, "KKeys cannot be null or none");
-            }
-            catch (Exception ex)
-            {
-                string title = "Keyboard Error";
+                string title = "StartRoutine Error";
 
                 throw new ExecException($"{title}: {ex}");
             }

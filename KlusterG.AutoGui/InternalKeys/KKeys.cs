@@ -32,6 +32,9 @@ namespace KlusterG.AutoGui.InternalKeys
         Caps = 0x14,
 
         [EnumMember]
+        Esc = 0x1B,
+
+        [EnumMember]
         Space = 0x20,
 
         [EnumMember]

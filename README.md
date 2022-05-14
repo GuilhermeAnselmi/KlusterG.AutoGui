@@ -2,6 +2,9 @@
 
 Library developed to facilitate the use of native windows components, such as defining the cursor position, sending keyboard shortcuts, or simulating keyboard typing.
 
+# Requirements
+* .NET Core v6.0
+
 # How To Import?
 
 ## NuGet

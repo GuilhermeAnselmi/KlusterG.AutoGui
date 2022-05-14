@@ -4,6 +4,20 @@ Library developed to facilitate the use of native windows components, such as de
 
 # How To Import?
 
+## NuGet
+* Access the NuGet package manager in your project
+* Click Search
+* Search for KlusterG.AutoGui
+* Install the latest version of the library
+
+## Command Line
+* Access the Package Manager Console
+* Type the command ```Install-Package KlusterG.AutoGui -Version 1.0.6```
+
+## .NET CLI
+* Type the command ```dotnet add package KlusterG.AutoGui --version 1.0.6```
+
+## Git Clone
 * Click on Code and download in .zip (can be done in other ways, I'm saying the simplest).
 * Extract the content somewhere where you can locate it later (it can be placed together with the project you want to use, even within the solution itself).
 * Access the KlusterG.AutoGui project and compile it.

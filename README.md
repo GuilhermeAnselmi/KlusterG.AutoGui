@@ -173,3 +173,4 @@ Library developed to facilitate the use of native windows components, such as de
   Return: bool, string
 
 #
+

@@ -20,7 +20,7 @@ namespace KlusterG.AutoGui.InternalKeys
         Enter = 0x0D,
 
         [EnumMember]
-        Shift = 0x10,
+        Shift = 0xa0,
 
         [EnumMember]
         Ctrl = 0x11,
@@ -78,6 +78,38 @@ namespace KlusterG.AutoGui.InternalKeys
 
         [EnumMember]
         Nine = 0x39,
+        #endregion
+
+        #region KeyPad
+        [EnumMember]
+        KeyPadZero = 96,
+
+        [EnumMember]
+        KeyPadOne = 97,
+
+        [EnumMember]
+        KeyPadTwo = 98,
+
+        [EnumMember]
+        KeyPadThree = 99,
+
+        [EnumMember]
+        KeyPadFour = 100,
+
+        [EnumMember]
+        KeyPadFive = 101,
+
+        [EnumMember]
+        KeyPadSix = 102,
+
+        [EnumMember]
+        KeyPadSeven = 103,
+
+        [EnumMember]
+        KeyPadEight = 104,
+
+        [EnumMember]
+        KeyPadNine = 105,
         #endregion
 
         #region A ... Z

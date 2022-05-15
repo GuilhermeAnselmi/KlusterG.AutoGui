@@ -12,10 +12,10 @@ namespace KlusterG.AutoGui.InternalKeys
         LeftDrop = 0x00000004,
 
         [EnumMember]
-        RightPress = 0x00000010,
+        RightPress = 0x0000008,
 
         [EnumMember]
-        RightDrop = 0x0000008,
+        RightDrop = 0x00000010,
 
         [EnumMember]
         MiddlePress = 0x00000020,

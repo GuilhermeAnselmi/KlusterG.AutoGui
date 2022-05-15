@@ -1,6 +1,8 @@
-﻿using KlusterG.AutoGui.InternalKeys;
+﻿using KlusterG.AutoGui.Control;
+using KlusterG.AutoGui.InternalKeys;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Text.RegularExpressions;
 using static KlusterG.AutoGui.Structs;
 
 namespace KlusterG.AutoGui
@@ -156,14 +158,20 @@ namespace KlusterG.AutoGui
                 if (key == MKeys.Left)
                 {
                     External.MouseEvet((int)MouseKeys.LeftPress, 0, 0, 0, 0);
+
+                    return new Tuple<bool, string>(true, null);
                 }
                 else if (key == MKeys.Right)
                 {
                     External.MouseEvet((int)MouseKeys.RightPress, 0, 0, 0, 0);
+
+                    return new Tuple<bool, string>(true, null);
                 }
                 else if (key == MKeys.Middle)
                 {
                     External.MouseEvet((int)MouseKeys.MiddlePress, 0, 0, 0, 0);
+
+                    return new Tuple<bool, string>(true, null);
                 }
 
                 return new Tuple<bool, string>(false, "MKeys cannot be null or none");
@@ -188,15 +196,30 @@ namespace KlusterG.AutoGui
             {
                 if (key == MKeys.Left)
                 {
-                    External.MouseEvet((int)MouseKeys.LeftDrop, 0, 0, 0, 0);
+                    if (External.GetAsyncKeyState(1) == -32767)
+                    {
+                        External.MouseEvet((int)MouseKeys.LeftDrop, 0, 0, 0, 0);
+                    }
+
+                    return new Tuple<bool, string>(true, null);
                 }
                 else if (key == MKeys.Right)
                 {
-                    External.MouseEvet((int)MouseKeys.RightDrop, 0, 0, 0, 0);
+                    if (External.GetAsyncKeyState(2) == -32767)
+                    {
+                        External.MouseEvet((int)MouseKeys.RightDrop, 0, 0, 0, 0);
+                    }
+
+                    return new Tuple<bool, string>(true, null);
                 }
                 else if (key == MKeys.Middle)
                 {
-                    External.MouseEvet((int)MouseKeys.MiddleDrop, 0, 0, 0, 0);
+                    if (External.GetAsyncKeyState(4) == -32767)
+                    {
+                        External.MouseEvet((int)MouseKeys.MiddleDrop, 0, 0, 0, 0);
+                    }
+
+                    return new Tuple<bool, string>(true, null);
                 }
 
                 return new Tuple<bool, string>(false, "MKeys cannot be null or none");
@@ -289,14 +312,49 @@ namespace KlusterG.AutoGui
             {
                 if (text != null && text != "")
                 {
-                    char[] values = text.ToUpper().ToCharArray();
+                    char[] values = text.ToCharArray();
 
                     foreach (char value in values)
                     {
-                        var hex = Convert.ToInt32(value);
+                        if (Regex.IsMatch(value.ToString(), @"[a-z0-9]"))
+                        {
+                            var hex = Convert.ToInt32(char.Parse(value.ToString().ToUpper()));
 
-                        External.KeyboardEvent((byte)hex, 0, 0, UIntPtr.Zero);
-                        External.KeyboardEvent((byte)hex, 0, KEYEVENF_KEYUP, UIntPtr.Zero);
+                            External.KeyboardEvent((byte)hex, 0, 0, UIntPtr.Zero);
+                            External.KeyboardEvent((byte)hex, 0, KEYEVENF_KEYUP, UIntPtr.Zero);
+                        }
+                        else if (!Regex.IsMatch(value.ToString(), @"[A-Z]"))
+                        {
+                            List<byte> list = ShortcutControl.Shortcut(value);
+
+                            if (list != null && list.Count > 0)
+                            {
+                                foreach (byte b in list)
+                                {
+                                    External.KeyboardEvent((byte)b, 0, 0, UIntPtr.Zero);
+                                }
+
+                                foreach (byte b in list)
+                                {
+                                    External.KeyboardEvent((byte)b, 0, KEYEVENF_KEYUP, UIntPtr.Zero);
+                                }
+                            }
+                            else
+                            {
+                                return new Tuple<bool, string>(false, $"The value '{value}' cannot be identified, so nothing was written.");
+                            }
+                        }
+                        else
+                        {
+                            External.KeyboardEvent((byte)KKeys.Shift, 0, 0, UIntPtr.Zero);
+
+                            var hex = Convert.ToInt32(char.Parse(value.ToString().ToUpper()));
+
+                            External.KeyboardEvent((byte)hex, 0, 0, UIntPtr.Zero);
+                            External.KeyboardEvent((byte)hex, 0, KEYEVENF_KEYUP, UIntPtr.Zero);
+
+                            External.KeyboardEvent((byte)KKeys.Shift, 0, KEYEVENF_KEYUP, UIntPtr.Zero);
+                        }
                     }
 
                     return new Tuple<bool, string>(true, null);
@@ -309,6 +367,39 @@ namespace KlusterG.AutoGui
             catch (Exception ex)
             {
                 string title = "Write Error";
+
+                throw new ExecException($"{title}: {ex}");
+            }
+        }
+
+        /// <summary>
+        /// Simulates a single keyboard click
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>bool, string</returns>
+        /// <exception cref="ExecException"></exception>
+        public static Tuple<bool, string> KeyClick(KKeys key = KKeys.None)
+        {
+            try
+            {
+                if (key != KKeys.None)
+                {
+                    External.KeyboardEvent((byte)key, 0, 0, UIntPtr.Zero);
+
+                    Thread.Sleep(300);
+
+                    External.KeyboardEvent((byte)key, 0, KEYEVENF_KEYUP, UIntPtr.Zero);
+
+                    return new Tuple<bool, string>(true, null);
+                }
+                else
+                {
+                    return new Tuple<bool, string>(false, "KKeys cannot be none");
+                }
+            }
+            catch (Exception ex)
+            {
+                string title = "KeyPress Error";
 
                 throw new ExecException($"{title}: {ex}");
             }
@@ -488,11 +579,15 @@ namespace KlusterG.AutoGui
         /// </summary>
         /// <param name="time"></param>
         /// <exception cref="ExecException"></exception>
-        public static void Wait(int time)
+        public static void Wait(double time)
         {
             try
             {
-                Thread.Sleep(time * 1000);
+                time = Math.Round(time, 2) * 1000;
+
+                int formatTime = int.Parse(time.ToString());
+
+                Thread.Sleep(formatTime);
             }
             catch (Exception ex)
             {
@@ -551,6 +646,12 @@ namespace KlusterG.AutoGui
                             {
                                 case KeyboardAction.Write:
                                     Write(e.Keyboard.Text);
+                                    break;
+
+                                case KeyboardAction.Click:
+                                    if (e.Keyboard.PrimaryKey != KKeys.None) KeyClick(e.Keyboard.PrimaryKey);
+                                    if (e.Keyboard.SecondaryKey != KKeys.None) KeyClick(e.Keyboard.SecondaryKey);
+                                    if (e.Keyboard.TertiaryKey != KKeys.None) KeyClick(e.Keyboard.TertiaryKey);
                                     break;
 
                                 case KeyboardAction.Press:

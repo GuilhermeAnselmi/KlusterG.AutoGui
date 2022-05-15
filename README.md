@@ -2,8 +2,25 @@
 
 Library developed to facilitate the use of native windows components, such as defining the cursor position, sending keyboard shortcuts, or simulating keyboard typing.
 
+# Requirements
+* .NET Core v6.0
+
 # How To Import?
 
+## NuGet
+* Access the NuGet package manager in your project
+* Click Search
+* Search for KlusterG.AutoGui
+* Install the latest version of the library
+
+## Command Line
+* Access the Package Manager Console
+* Type the command ```Install-Package KlusterG.AutoGui -Version 1.0.11```
+
+## .NET CLI
+* Type the command ```dotnet add package KlusterG.AutoGui --version 1.0.11```
+
+## Git Clone
 * Click on Code and download in .zip (can be done in other ways, I'm saying the simplest).
 * Extract the content somewhere where you can locate it later (it can be placed together with the project you want to use, even within the solution itself).
 * Access the KlusterG.AutoGui project and compile it.
@@ -85,6 +102,14 @@ Library developed to facilitate the use of native windows components, such as de
 
 #
 
+* KeyClick(KKeys key)
+
+  Comment: Simulates a single keyboard click
+
+  Return: Tuple<bool, string>
+
+#
+
 * KeyPress(KKeys key)
 
   Comment: Press a keyboard key
@@ -141,7 +166,7 @@ Library developed to facilitate the use of native windows components, such as de
 
 #
 
-* StartRoutine(List<ModelRoutine> routine)
+* StartRoutine(List\<ModelRoutine\> routine)
 
   Comment: Reads a list from the ModelRoutine object that executes each index in sequence to execute Mouse or Keyboard simulation commands
   

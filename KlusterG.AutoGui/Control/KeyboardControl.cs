@@ -1,6 +1,6 @@
 ﻿using KlusterG.AutoGui.InternalKeys;
 
-namespace KlusterG.AutoGui
+namespace KlusterG.AutoGui.Control
 {
     internal class KeyboardControl
     {

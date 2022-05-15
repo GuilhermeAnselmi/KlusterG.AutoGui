@@ -5,9 +5,10 @@ namespace KlusterG.AutoGui
     public enum KeyboardAction
     {
         Write = 1,
-        Press = 2,
-        Release = 3,
-        ReleaseAll = 4,
+        Click = 2,
+        Press = 3,
+        Release = 4,
+        ReleaseAll = 5,
     }
 
     public class Keyboard

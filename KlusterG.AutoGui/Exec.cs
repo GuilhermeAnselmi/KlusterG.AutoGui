@@ -611,7 +611,7 @@ namespace KlusterG.AutoGui
                 {
                     foreach (ModelRoutine e in routine)
                     {
-                        if (e.Input.Equals(Input.Mouse))
+                        if (e.Input.Equals(Input.Mouse) || e.Input.Equals(Input.Both))
                         {
                             if (e.Mouse.Move) SetCursorPosition(e.Mouse);
 
@@ -637,10 +637,11 @@ namespace KlusterG.AutoGui
                                     ReleaseMouseKeys();
                                     break;
                             }
-
-                            Wait(e.Wait);
                         }
-                        else if (e.Input.Equals(Input.Keyboard))
+
+                        Wait(0.2);
+
+                        if (e.Input.Equals(Input.Keyboard) || e.Input.Equals(Input.Both))
                         {
                             switch (e.Keyboard.Action)
                             {
@@ -670,9 +671,9 @@ namespace KlusterG.AutoGui
                                     ReleaseAllKeys();
                                     break;
                             }
-
-                            Wait(e.Wait);
                         }
+
+                        Wait(e.Wait);
                     }
 
                     return new Tuple<bool, string>(true, null);
@@ -683,6 +684,89 @@ namespace KlusterG.AutoGui
             catch (Exception ex)
             {
                 string title = "StartRoutine Error";
+
+                throw new ExecException($"{title}: {ex}");
+            }
+        }
+
+        public static Tuple<bool, string> StartProcedure(ModelProcedure procedure)
+        {
+            try
+            {
+                if (procedure != null)
+                {
+                    if (procedure.Input.Equals(InputProcedure.Mouse) || procedure.Input.Equals(InputProcedure.Both))
+                    {
+                        if (procedure.Mouse.Move) SetCursorPosition(procedure.Mouse);
+
+                        switch (procedure.Mouse.Action)
+                        {
+                            case MouseAction.Click:
+                                MouseClick(procedure.Mouse.Key);
+                                break;
+
+                            case MouseAction.Double:
+                                MouseDoubleClick(procedure.Mouse.Key);
+                                break;
+
+                            case MouseAction.Press:
+                                MousePress(procedure.Mouse.Key);
+                                break;
+
+                            case MouseAction.Release:
+                                ReleaseMouse(procedure.Mouse.Key);
+                                break;
+
+                            case MouseAction.ReleaseAll:
+                                ReleaseMouseKeys();
+                                break;
+                        }
+                    }
+
+                    Wait(0.2);
+
+                    if (procedure.Input.Equals(InputProcedure.Keyboard) || procedure.Input.Equals(InputProcedure.Both))
+                    {
+                        switch (procedure.Keyboard.Action)
+                        {
+                            case KeyboardAction.Write:
+                                Write(procedure.Keyboard.Text);
+                                break;
+
+                            case KeyboardAction.Click:
+                                if (procedure.Keyboard.PrimaryKey != KKeys.None) KeyClick(procedure.Keyboard.PrimaryKey);
+                                if (procedure.Keyboard.SecondaryKey != KKeys.None) KeyClick(procedure.Keyboard.SecondaryKey);
+                                if (procedure.Keyboard.TertiaryKey != KKeys.None) KeyClick(procedure.Keyboard.TertiaryKey);
+                                break;
+
+                            case KeyboardAction.Press:
+                                if (procedure.Keyboard.PrimaryKey != KKeys.None) KeyPress(procedure.Keyboard.PrimaryKey);
+                                if (procedure.Keyboard.SecondaryKey != KKeys.None) KeyPress(procedure.Keyboard.SecondaryKey);
+                                if (procedure.Keyboard.TertiaryKey != KKeys.None) KeyPress(procedure.Keyboard.TertiaryKey);
+                                break;
+
+                            case KeyboardAction.Release:
+                                if (procedure.Keyboard.PrimaryKey != KKeys.None) ReleaseKey(procedure.Keyboard.PrimaryKey);
+                                if (procedure.Keyboard.SecondaryKey != KKeys.None) ReleaseKey(procedure.Keyboard.SecondaryKey);
+                                if (procedure.Keyboard.TertiaryKey != KKeys.None) ReleaseKey(procedure.Keyboard.TertiaryKey);
+                                break;
+
+                            case KeyboardAction.ReleaseAll:
+                                ReleaseAllKeys();
+                                break;
+                        }
+                    }
+
+                    Wait(procedure.Wait);
+
+                    return new Tuple<bool, string>(true, null);
+                }
+
+                return new Tuple<bool, string>(false, "ModelRoutine cannot be null");
+            }
+            catch (Exception ex)
+            {
+                string title = "StartProcedure Error";
 
                 throw new ExecException($"{title}: {ex}");
             }

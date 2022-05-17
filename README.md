@@ -15,10 +15,10 @@ Library developed to facilitate the use of native windows components, such as de
 
 ## Command Line
 * Access the Package Manager Console
-* Type the command ```Install-Package KlusterG.AutoGui -Version 1.0.11```
+* Type the command ```Install-Package KlusterG.AutoGui -Version 1.1.0```
 
 ## .NET CLI
-* Type the command ```dotnet add package KlusterG.AutoGui --version 1.0.11```
+* Type the command ```dotnet add package KlusterG.AutoGui --version 1.1.0```
 
 ## Git Clone
 * Click on Code and download in .zip (can be done in other ways, I'm saying the simplest).
@@ -174,3 +174,10 @@ Library developed to facilitate the use of native windows components, such as de
 
 #
 
+* StartRoutine(ModelProcedure procedure)
+
+  Comment: Reads a ModelProcedure object that executes both mouse and keyboard commands.
+  
+  Return: bool, string
+
+#

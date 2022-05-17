@@ -174,7 +174,7 @@ Library developed to facilitate the use of native windows components, such as de
 
 #
 
-* StartRoutine(ModelProcedure procedure)
+* StartProcedure(ModelProcedure procedure)
 
   Comment: Reads a ModelProcedure object that executes both mouse and keyboard commands.
   

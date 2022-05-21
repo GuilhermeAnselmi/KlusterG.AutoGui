@@ -14,7 +14,7 @@ namespace KlusterG.AutoGui
         public Mouse Mouse { get; set; }
         public Keyboard Keyboard { get; set; }
         public Input Input { get; set; }
-        public int Wait { get; set; }
+        public double Wait { get; set; }
 
         public ModelRoutine()
         {

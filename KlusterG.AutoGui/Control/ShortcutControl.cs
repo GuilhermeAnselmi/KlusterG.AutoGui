@@ -111,6 +111,127 @@ namespace KlusterG.AutoGui.Control
                     list.Add(192);
                     break;
 
+                case '\\':
+                    list.Add(226);
+                    break;
+
+                case 'ç':
+                    list.Add(186);
+                    break;
+
+                case 'Ç':
+                    list.Add((byte)KKeys.Shift);
+                    list.Add(186);
+                    break;
+
+                case 'á':
+                    list.Add(219);
+                    list.Add((byte)KKeys.A);
+                    break;
+
+                case 'Á':
+                    list.Add(219);
+                    list.Add((byte)KKeys.Shift);
+                    list.Add((byte)KKeys.A);
+                    break;
+
+                case 'é':
+                    list.Add(219);
+                    list.Add((byte)KKeys.E);
+                    break;
+
+                case 'É':
+                    list.Add(219);
+                    list.Add((byte)KKeys.Shift);
+                    list.Add((byte)KKeys.E);
+                    break;
+
+                case 'í':
+                    list.Add(219);
+                    list.Add((byte)KKeys.I);
+                    break;
+
+                case 'Í':
+                    list.Add(219);
+                    list.Add((byte)KKeys.Shift);
+                    list.Add((byte)KKeys.I);
+                    break;
+
+                case 'ó':
+                    list.Add(219);
+                    list.Add((byte)KKeys.O);
+                    break;
+
+                case 'Ó':
+                    list.Add(219);
+                    list.Add((byte)KKeys.Shift);
+                    list.Add((byte)KKeys.O);
+                    break;
+
+                case 'ú':
+                    list.Add(219);
+                    list.Add((byte)KKeys.U);
+                    break;
+
+                case 'Ú':
+                    list.Add(219);
+                    list.Add((byte)KKeys.Shift);
+                    list.Add((byte)KKeys.U);
+                    break;
+
+                case 'ã':
+                    list.Add(222);
+                    list.Add((byte)KKeys.A);
+                    break;
+
+                case 'Ã':
+                    list.Add(222);
+                    list.Add((byte)KKeys.Shift);
+                    list.Add((byte)KKeys.A);
+                    break;
+
+                case 'õ':
+                    list.Add(222);
+                    list.Add((byte)KKeys.O);
+                    break;
+
+                case 'Õ':
+                    list.Add(222);
+                    list.Add((byte)KKeys.Shift);
+                    list.Add((byte)KKeys.O);
+                    break;
+
+                case 'ê':
+                    list.Add((byte)KKeys.Shift);
+                    list.Add(222);
+                    list.Add((byte)KKeys.Caps);
+                    list.Add((byte)KKeys.E);
+                    break;
+
+                case 'Ê':
+                    list.Add((byte)KKeys.Shift);
+                    list.Add(222);
+                    list.Add((byte)KKeys.E);
+                    break;
+
+                case '[':
+                    list.Add(221);
+                    break;
+
+                case ']':
+                    list.Add(220);
+                    break;
+
+                case '<':
+                    list.Add((byte)KKeys.Shift);
+                    list.Add(188);
+                    break;
+
+                case '>':
+                    list.Add((byte)KKeys.Shift);
+                    list.Add(190);
+                    break;
+
                 default:
                     list = null;
                     break;

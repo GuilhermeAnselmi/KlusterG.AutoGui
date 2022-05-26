@@ -338,6 +338,12 @@ namespace KlusterG.AutoGui
                                 {
                                     External.KeyboardEvent((byte)b, 0, KEYEVENF_KEYUP, UIntPtr.Zero);
                                 }
+
+                                if (list.Contains((byte)KKeys.Caps))
+                                {
+                                    External.KeyboardEvent((byte)KKeys.Caps, 0, 0, UIntPtr.Zero);
+                                    External.KeyboardEvent((byte)KKeys.Caps, 0, KEYEVENF_KEYUP, UIntPtr.Zero);
+                                }
                             }
                             else
                             {

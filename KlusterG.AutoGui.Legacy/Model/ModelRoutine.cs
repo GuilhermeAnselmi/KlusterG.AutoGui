@@ -1,7 +1,7 @@
 ﻿
-namespace KlusterG.AutoGui
+namespace KlusterG.AutoGui.Legacy
 {
-    public enum InputProcedure
+    public enum Input
     {
         None = 0,
         Mouse = 1,
@@ -9,18 +9,18 @@ namespace KlusterG.AutoGui
         Both = 3,
     }
 
-    public class ModelProcedure
+    public class ModelRoutine
     {
         public Mouse Mouse { get; set; }
         public Keyboard Keyboard { get; set; }
-        public InputProcedure Input { get; set; }
+        public Input Input { get; set; }
         public double Wait { get; set; }
 
-        public ModelProcedure()
+        public ModelRoutine()
         {
             Mouse = new Mouse();
             Keyboard = new Keyboard();
-            Input = InputProcedure.None;
+            Input = Input.None;
             Wait = 0;
         }
     }

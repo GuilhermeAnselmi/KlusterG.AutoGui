@@ -7,10 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KlusterG.AutoGui.Application\KlusterG.AutoGui.Application.csproj" />
     <ProjectReference Include="..\KlusterG.AutoGui.Domain\KlusterG.AutoGui.Domain.csproj" />
-    <ProjectReference Include="..\KlusterG.AutoGui.User32\KlusterG.AutoGui.User32.csproj" />
-    <ProjectReference Include="..\KlusterG.AutoGui.Xdotool\KlusterG.AutoGui.Xdotool.csproj" />
   </ItemGroup>
 
 </Project>

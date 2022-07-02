@@ -1,6 +1,6 @@
-﻿using KlusterG.AutoGui.InternalKeys;
+﻿using KlusterG.AutoGui.Legacy.InternalKeys;
 
-namespace KlusterG.AutoGui
+namespace KlusterG.AutoGui.Legacy
 {
     public enum MouseAction
     {

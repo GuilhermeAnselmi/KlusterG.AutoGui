@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace KlusterG.AutoGui
+namespace KlusterG.AutoGui.Legacy
 {
     internal class Essentials
     {

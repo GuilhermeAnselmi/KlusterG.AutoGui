@@ -1,16 +1,5 @@
-﻿using KlusterG.AutoGui.InternalKeys;
-
-namespace KlusterG.AutoGui
+﻿namespace KlusterG.AutoGui.Domain.Model
 {
-    public enum KeyboardAction
-    {
-        Write = 1,
-        Click = 2,
-        Press = 3,
-        Release = 4,
-        ReleaseAll = 5,
-    }
-
     public class Keyboard
     {
         public string Text { get; set; }
@@ -25,7 +14,7 @@ namespace KlusterG.AutoGui
             PrimaryKey = KKeys.None;
             SecondaryKey = KKeys.None;
             TertiaryKey = KKeys.None;
-            Action = KeyboardAction.Write;
+            Action = KeyboardAction.None;
         }
     }
 }

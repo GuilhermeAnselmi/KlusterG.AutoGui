@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<PackageId>KlusterG.AutoGui</PackageId>
+    <Version>1.2.0</Version>
+    <Authors>Guilherme Marques</Authors>
+    <Company>KlusterG</Company>
+	<RepositoryUrl>https://github.com/GuilhermeAnselmi/KlusterG.AutoGui</RepositoryUrl>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+  </ItemGroup>
+
+</Project>

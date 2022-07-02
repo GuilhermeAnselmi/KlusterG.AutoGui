@@ -1,11 +1,11 @@
-﻿using KlusterG.AutoGui.Control;
-using KlusterG.AutoGui.InternalKeys;
+﻿using KlusterG.AutoGui.Legacy.Control;
+using KlusterG.AutoGui.Legacy.InternalKeys;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Text.RegularExpressions;
-using static KlusterG.AutoGui.Structs;
+using static KlusterG.AutoGui.Legacy.Structs;
 
-namespace KlusterG.AutoGui
+namespace KlusterG.AutoGui.Legacy
 {
     public class Exec
     {

@@ -1,8 +1,6 @@
-﻿using KlusterG.AutoGui.InternalKeys;
-
-namespace KlusterG.AutoGui.Control
+﻿namespace KlusterG.AutoGui.Domain
 {
-    internal class ShortcutControl
+    public class ShurtcutList
     {
         public static List<byte> Shortcut(char value)
         {

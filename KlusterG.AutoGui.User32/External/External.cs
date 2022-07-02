@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace KlusterG.AutoGui
+namespace KlusterG.AutoGui.User32
 {
     internal class External
     {

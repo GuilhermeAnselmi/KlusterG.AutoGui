@@ -1,4 +1,4 @@
-﻿namespace KlusterG.AutoGui
+﻿namespace KlusterG.AutoGui.Legacy
 {
     public class PixelColor
     {

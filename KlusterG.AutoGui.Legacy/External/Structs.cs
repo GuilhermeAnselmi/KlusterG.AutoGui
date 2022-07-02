@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace KlusterG.AutoGui
+namespace KlusterG.AutoGui.Legacy
 {
     internal class Structs
     {

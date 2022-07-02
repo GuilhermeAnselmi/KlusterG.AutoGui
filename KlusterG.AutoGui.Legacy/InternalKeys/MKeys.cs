@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace KlusterG.AutoGui.InternalKeys
+namespace KlusterG.AutoGui.Legacy.InternalKeys
 {
     public enum MKeys
     {
